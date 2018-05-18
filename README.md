@@ -27,6 +27,7 @@ end
 Other fantastic features include:
 * wrap multiple modules as long as function names don't clash!
 * wrap aliased modules!
+* `.formatter.exs` file with `:export` directive! Make your calls to `wrap/1` look pretty!
 
 ## WARNING
 
