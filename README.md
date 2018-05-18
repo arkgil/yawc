@@ -24,6 +24,10 @@ defmodule UselessWrapper do
 end
 ```
 
+Other fantastic features include:
+* wrap multiple modules as long as function names don't clash!
+* wrap aliased modules!
+
 ## WARNING
 
 Please don't use this library to create wrapper libraries. To be honest, you'd be better off not
