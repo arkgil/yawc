@@ -29,4 +29,6 @@ end
 Please don't use this library to create wrapper libraries. To be honest, you'd be better off not
 using it at all.
 
+## License
 
+Licensed under [WTFPL](www.wtfpl.net). See `LICENSE` file for more information.
