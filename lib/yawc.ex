@@ -1,10 +1,33 @@
 defmodule YAWC do
   @moduledoc """
   Yet Another Wrapper Compiler
+
+  See documentation for `wrap/1` macro for the fun stuff.
   """
 
   @typep func :: {name :: atom(), arity()}
 
+  @doc """
+  Defines functions delegating calls to all public functions of the given module
+
+  With respect to Elixir convention it ignores functions starting with `__`.
+
+  ## Example
+
+      defmodule Wrapped do
+        def public_fun(), do: :value
+      end
+
+      defmodule Wrapping do
+        import YAWC
+        wrap Wrapped
+      end
+
+      iex> Wrapping.public_fun()
+      :value
+
+  Pure awesomeness. Now go, and use the wrapped module directly ;)
+  """
   defmacro wrap(module)
            when is_atom(module)
            when is_tuple(module) do
