@@ -52,26 +52,17 @@ defmodule YAWC do
         module.module_info(:exports)
         |> filter_functions()
 
-      quote bind_quoted: [module: module, functions: functions] do
-        for function <- functions do
-          defdelegate unquote(YAWC.__call_ast__(function)), to: module
+      for {name, arity} <- functions do
+        args = for i <- 0..arity, i > 0, do: Macro.var(:"#{i}", nil)
+
+        quote do
+          defdelegate unquote(name)(unquote_splicing(args)), to: unquote(module)
         end
       end
     rescue
       _ in UndefinedFunctionError ->
         raise ArgumentError, "Module #{inspect(module)} is unavailable"
     end
-  end
-
-  ## Private exported
-
-  @spec __call_ast__(func) :: Macro.t()
-  def __call_ast__({name, 0}) do
-    {name, [], []}
-  end
-
-  def __call_ast__({name, arity}) do
-    {name, [], Enum.map(1..arity, fn i -> {:"#{i}", [], __ENV__.context} end)}
   end
 
   ## Internals
